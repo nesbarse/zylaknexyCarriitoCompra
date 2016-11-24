@@ -36,6 +36,14 @@ public class CompraBean implements GenericBean{
     private Integer id_factura = 0;
     @Expose(deserialize = false)
     private FacturaBean obj_factura = null;
+    
+    public CompraBean() {
+        this.id = 0;
+    }
+
+    public CompraBean(Integer id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;
@@ -141,7 +149,7 @@ public class CompraBean implements GenericBean{
     }
 
     @Override
-    public GenericBean fill(ResultSet oResultSet, Connection pooledConnection, Integer expand) throws SQLException, Exception {
+    public CompraBean fill(ResultSet oResultSet, Connection pooledConnection, Integer expand) throws SQLException, Exception {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         this.setId(oResultSet.getInt("id"));
         this.setDescripcion(oResultSet.getString("descripcion"));

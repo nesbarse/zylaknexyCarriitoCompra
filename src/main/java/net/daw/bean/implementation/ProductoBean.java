@@ -23,6 +23,14 @@ public class ProductoBean implements GenericBean {
     private String nombre = "";
     @Expose
     private Integer cantidad;
+    
+    public ProductoBean() {
+        this.id = 0;
+    }
+
+    public ProductoBean(Integer id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;
@@ -82,7 +90,7 @@ public class ProductoBean implements GenericBean {
     }
 
     @Override
-    public GenericBean fill(ResultSet oResultSet, Connection pooledConnection, Integer expand) throws SQLException, Exception {
+    public ProductoBean fill(ResultSet oResultSet, Connection pooledConnection, Integer expand) throws SQLException, Exception {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         this.setId(oResultSet.getInt("id"));
         this.setNombre(oResultSet.getString("nombre"));

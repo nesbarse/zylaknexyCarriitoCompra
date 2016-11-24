@@ -23,6 +23,14 @@ public class FacturaBean implements GenericBean{
     private Integer id;
     @Expose
     private Date fecha;
+    
+    public FacturaBean() {
+        this.id = 0;
+    }
+
+    public FacturaBean(Integer id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;
@@ -72,7 +80,7 @@ public class FacturaBean implements GenericBean{
     }
 
     @Override
-    public GenericBean fill(ResultSet oResultSet, Connection pooledConnection, Integer expand) throws SQLException, Exception {
+    public FacturaBean fill(ResultSet oResultSet, Connection pooledConnection, Integer expand) throws SQLException, Exception {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         this.setId(oResultSet.getInt("id"));
         this.setFecha(oResultSet.getDate("fecha"));
