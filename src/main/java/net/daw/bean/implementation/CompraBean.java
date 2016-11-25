@@ -23,7 +23,9 @@ public class CompraBean implements GenericBean{
     @Expose
     private Integer id;
     @Expose
-    private String descripcion;
+    private Integer cantidad;
+//    @Expose
+//    private String descripcion;
     @Expose(serialize = false)
     private Integer id_usuario = 0;
     @Expose(deserialize = false)
@@ -32,10 +34,10 @@ public class CompraBean implements GenericBean{
     private Integer id_producto = 0;
     @Expose(deserialize = false)
     private ProductoBean obj_producto = null;
-    @Expose(serialize = false)
-    private Integer id_factura = 0;
-    @Expose(deserialize = false)
-    private FacturaBean obj_factura = null;
+//    @Expose(serialize = false)
+//    private Integer id_factura = 0;
+//    @Expose(deserialize = false)
+//    private FacturaBean obj_factura = null;
     
     public CompraBean() {
         this.id = 0;
@@ -43,6 +45,14 @@ public class CompraBean implements GenericBean{
 
     public CompraBean(Integer id) {
         this.id = id;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
     }
 
     public Integer getId() {
@@ -53,13 +63,13 @@ public class CompraBean implements GenericBean{
         this.id = id;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+//    public String getDescripcion() {
+//        return descripcion;
+//    }
+//
+//    public void setDescripcion(String descripcion) {
+//        this.descripcion = descripcion;
+//    }
 
     public Integer getId_usuario() {
         return id_usuario;
@@ -93,31 +103,31 @@ public class CompraBean implements GenericBean{
         this.obj_producto = obj_producto;
     }
 
-    public Integer getId_factura() {
-        return id_factura;
-    }
-
-    public void setId_factura(Integer id_factura) {
-        this.id_factura = id_factura;
-    }
-
-    public FacturaBean getObj_factura() {
-        return obj_factura;
-    }
-
-    public void setObj_factura(FacturaBean obj_factura) {
-        this.obj_factura = obj_factura;
-    }
+//    public Integer getId_factura() {
+//        return id_factura;
+//    }
+//
+//    public void setId_factura(Integer id_factura) {
+//        this.id_factura = id_factura;
+//    }
+//
+//    public FacturaBean getObj_factura() {
+//        return obj_factura;
+//    }
+//
+//    public void setObj_factura(FacturaBean obj_factura) {
+//        this.obj_factura = obj_factura;
+//    }
 
     @Override
     public String getColumns() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         String strColumns = "";
         strColumns += "id,";
-        strColumns += "descripcion,";
+        strColumns += "cantidad,";
         strColumns += "id_usuario,";
         strColumns += "id_producto,";
-        strColumns += "id_factura";
+//        strColumns += "id_factura";
         
         return strColumns;
     }
@@ -127,10 +137,11 @@ public class CompraBean implements GenericBean{
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         String strColumns = "";
         strColumns += id + ",";
-        strColumns += EncodingUtilHelper.quotate(descripcion) + ",";
+        strColumns += cantidad + ",";
+//        strColumns += EncodingUtilHelper.quotate(descripcion) + ",";
         strColumns += id_usuario + ",";
-        strColumns += id_producto + ",";
-        strColumns += id_factura;
+        strColumns += id_producto;
+//        strColumns += id_factura;
         
         return strColumns;
     }
@@ -140,10 +151,11 @@ public class CompraBean implements GenericBean{
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         String strPairs = "";
         strPairs += "id=" + id + ",";
-        strPairs += "descripcion=" + EncodingUtilHelper.quotate(descripcion) + ",";
+        strPairs += "cantidad=" + cantidad + ",";
+//        strPairs += "descripcion=" + EncodingUtilHelper.quotate(descripcion) + ",";
         strPairs += "id_usuario=" + id_usuario + ",";
-        strPairs += "id_producto=" + id_producto + ",";
-        strPairs += "id_factura=" + id_factura;
+        strPairs += "id_producto=" + id_producto;
+//        strPairs += "id_factura=" + id_factura;
         
         return strPairs;
     }
@@ -152,7 +164,8 @@ public class CompraBean implements GenericBean{
     public CompraBean fill(ResultSet oResultSet, Connection pooledConnection, Integer expand) throws SQLException, Exception {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         this.setId(oResultSet.getInt("id"));
-        this.setDescripcion(oResultSet.getString("descripcion"));
+        this.setCantidad(oResultSet.getInt("cantidad"));
+//        this.setDescripcion(oResultSet.getString("descripcion"));
         if (expand > 0) {
             UsuarioBean oUsuarioBean = new UsuarioBean();
             UsuarioDao oUsuarioDao = new UsuarioDao(pooledConnection);
@@ -171,15 +184,15 @@ public class CompraBean implements GenericBean{
         } else {
             this.setId_producto(oResultSet.getInt("id_producto"));
         }
-        if (expand > 0) {
-            FacturaBean oFacturaBean = new FacturaBean();
-            FacturaDao oFacturaDao = new FacturaDao(pooledConnection);
-            oFacturaBean.setId(oResultSet.getInt("id_factura"));
-            oFacturaBean = oFacturaDao.get(oFacturaBean, expand - 1);
-            this.setObj_factura(oFacturaBean);
-        } else {
-            this.setId_factura(oResultSet.getInt("id_factura"));
-        }
+//        if (expand > 0) {
+//            FacturaBean oFacturaBean = new FacturaBean();
+//            FacturaDao oFacturaDao = new FacturaDao(pooledConnection);
+//            oFacturaBean.setId(oResultSet.getInt("id_factura"));
+//            oFacturaBean = oFacturaDao.get(oFacturaBean, expand - 1);
+//            this.setObj_factura(oFacturaBean);
+//        } else {
+//            this.setId_factura(oResultSet.getInt("id_factura"));
+//        }
         
         return this;
     }

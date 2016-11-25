@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import net.daw.bean.publicinterface.GenericBean;
+import net.daw.dao.implementation.CompraDao;
 import net.daw.helper.statics.EncodingUtilHelper;
 
 /**
@@ -23,6 +24,10 @@ public class FacturaBean implements GenericBean{
     private Integer id;
     @Expose
     private Date fecha;
+    @Expose(serialize = false)
+    private Integer id_compra = 0;
+    @Expose(deserialize = false)
+    private CompraBean obj_compra = null;
     
     public FacturaBean() {
         this.id = 0;
@@ -31,6 +36,23 @@ public class FacturaBean implements GenericBean{
     public FacturaBean(Integer id) {
         this.id = id;
     }
+
+    public Integer getId_compra() {
+        return id_compra;
+    }
+
+    public void setId_compra(Integer id_compra) {
+        this.id_compra = id_compra;
+    }
+
+    public CompraBean getObj_compra() {
+        return obj_compra;
+    }
+
+    public void setObj_compra(CompraBean obj_compra) {
+        this.obj_compra = obj_compra;
+    }
+    
 
     public Integer getId() {
         return id;
@@ -53,7 +75,8 @@ public class FacturaBean implements GenericBean{
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         String strColumns = "";
         strColumns += "id,";
-        strColumns += "fecha";
+        strColumns += "fecha,";
+        strColumns += "compra";
         
         return strColumns;
     }
@@ -64,6 +87,7 @@ public class FacturaBean implements GenericBean{
         String strColumns = "";
         strColumns += id + ",";
         strColumns += EncodingUtilHelper.stringifyAndQuotate(fecha);
+        strColumns += id_compra;
         
         return strColumns;
     }
@@ -75,6 +99,7 @@ public class FacturaBean implements GenericBean{
         String strPairs = "";
         strPairs += "id=" + id + ",";
         strPairs += "fecha=" + EncodingUtilHelper.quotate(format.format(fecha));
+        strPairs += "id_compra=" + id_compra;
         
         return strPairs;
     }
@@ -84,6 +109,15 @@ public class FacturaBean implements GenericBean{
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         this.setId(oResultSet.getInt("id"));
         this.setFecha(oResultSet.getDate("fecha"));
+        if (expand > 0) {
+            CompraBean oCompraBean = new CompraBean();
+            CompraDao oCompraDao = new CompraDao(pooledConnection);
+            oCompraBean.setId(oResultSet.getInt("id_compra"));
+            oCompraBean = oCompraDao.get(oCompraBean, expand - 1);
+            this.setObj_compra(oCompraBean);
+        } else {
+            this.setId_compra(oResultSet.getInt("id_compra"));
+        }
         
         return this;
     }

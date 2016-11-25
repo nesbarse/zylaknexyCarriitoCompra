@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import net.daw.bean.publicinterface.GenericBean;
+import net.daw.helper.statics.EncodingUtilHelper;
 
 /**
  *
@@ -72,7 +73,7 @@ public class ProductoBean implements GenericBean {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         String strColumns = "";
         strColumns += id + ",";
-        strColumns += nombre + ",";
+        strColumns += EncodingUtilHelper.quotate(nombre) + ",";
         strColumns += cantidad;
 
         return strColumns;
@@ -83,7 +84,7 @@ public class ProductoBean implements GenericBean {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         String strPairs = "";
         strPairs += "id=" + id + ",";
-        strPairs += "nombre=" + nombre + ",";
+        strPairs += "nombre=" + EncodingUtilHelper.quotate(nombre) + ",";
         strPairs += "cantidad=" + cantidad;
 
         return strPairs;
